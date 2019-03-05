@@ -17,6 +17,8 @@ public:
     Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
     Q_PROPERTY(bool isMute READ isMute WRITE setIsMute NOTIFY isMuteChanged)
     Q_PROPERTY(int playMode READ playMode WRITE setPlayMode NOTIFY playModeChanged)
+    Q_PROPERTY(int currentPlayIndex READ currentPlayIndex WRITE setCurrentPlayIndex NOTIFY currentPlayIndexChanged)
+    Q_PROPERTY(qint64 currentPlayPosition READ currentPlayPosition WRITE setCurrentPlayPosition NOTIFY currentPlayPositionChanged)
 
 public slots:
     bool isEnabled() const;
@@ -24,17 +26,20 @@ public slots:
 
     class QMediaPlaylist* mediaPlayList() const;
 
-
     int volume() const;
     void setVolume(int volume);
-
 
     bool isMute() const;
     void setIsMute(bool isMute);
 
-
     int playMode() const;
     void setPlayMode(int playMode);
+
+    int currentPlayIndex() const;
+    void setCurrentPlayIndex(int currentPlayIndex);
+
+    qint64 currentPlayPosition() const;
+    void setCurrentPlayPosition(const qint64 &currentPlayPosition);
 
 
 signals:
@@ -42,6 +47,8 @@ signals:
     void volumeChanged(int volume);
     void isMuteChanged(bool isMute);
     void playModeChanged(int playMode);
+    void currentPlayIndexChanged(int currentPlayIndex);
+    void currentPlayPositionChanged(const qint64 &currentPlayPosition);
 
 signals:
     void playerStateChanged(int state);
@@ -67,16 +74,22 @@ private:
      */
     bool _isMute;
 
+    /**
+     * @brief _currentPlayIndex 当前播放的索引
+     */
+    int _currentPlayIndex;
+
+    /**
+     * @brief _currentPlayPosition 当前媒体的播放进度
+     */
+    qint64 _currentPlayPosition;
+
+
 private:
     /**
      * @brief _mediaPlayListPath 播放列表文件位置
      */
     static const char* _mediaPlayListPath;
-
-    /**
-     * @brief _configScope 保存的节
-     */
-    static const QString _configScope;
 
 public slots:
 

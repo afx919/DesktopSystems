@@ -72,8 +72,6 @@ void WallpaperWidget::initUI()
         _wallpaperConfig->setPlayMode(4);
     });
 
-    connect(ui->listWidget,&QMenuListWidget::selectDeleteItem,this,&WallpaperWidget::removeFile);
-
     connect(ui->volume_slider,&QAbstractSlider::valueChanged,_wallpaperConfig,&WallpaperConfig::setVolume);
 
     connect(ui->mute_checkbox,&QAbstractButton::clicked,_wallpaperConfig,&WallpaperConfig::setIsMute);
@@ -102,6 +100,10 @@ void WallpaperWidget::initUI()
     connect(ui->remove_file_button,&QPushButton::clicked,this,&WallpaperWidget::removeFile);
     connect(ui->add_file_button,&QPushButton::clicked,this,&WallpaperWidget::addFile);
 
+    //连接ListWidget的信号
+    connect(ui->listWidget,&QMenuListWidget::selectDeleteItem,this,&WallpaperWidget::removeFile);
+    connect(ui->listWidget,&QMenuListWidget::addMediaFile,this,&WallpaperWidget::addFile);
+    connect(ui->listWidget,&QMenuListWidget::playItem,this,&WallpaperWidget::playMedia);
 }
 
 void WallpaperWidget::refreshFileList()

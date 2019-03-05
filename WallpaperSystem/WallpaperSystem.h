@@ -39,6 +39,12 @@ public slots:
      */
     void playFastBackward();
 
+    /**
+     * @brief playMedia 播放指定媒体
+     * @param filePath 媒体路径
+     */
+    void playMedia(const QString& filePath);
+
 private:
     /**
      * @brief _mediaPlayer 当前的媒体播放对象

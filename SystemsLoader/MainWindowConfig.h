@@ -25,9 +25,6 @@ public slots:
 private:
     bool _autoStart;
 
-private:
-    static const QString _configScope;
-
     // IConfig interface
 public:
     void loadSettings(QSettings *settings);

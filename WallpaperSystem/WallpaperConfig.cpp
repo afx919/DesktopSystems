@@ -5,10 +5,6 @@
 #include <QFile>
 
 const char* WallpaperConfig::_mediaPlayListPath("WallpaperPlayList.m3u");
-const QString WallpaperConfig::_configScope("WallpaperSystem/");
-
-//#define CONFIG_KEY(NAME) _configScope + NAME
-
 
 WallpaperConfig::WallpaperConfig(QObject *parent) : QObject(parent)
   , IConfig()
@@ -16,6 +12,7 @@ WallpaperConfig::WallpaperConfig(QObject *parent) : QObject(parent)
   , _mediaPlayList(new QMediaPlaylist(this))
   , _volume(50)
   , _isMute(false)
+  , _currentPlayIndex(0)
 {
 
 }
@@ -69,6 +66,28 @@ void WallpaperConfig::setPlayMode(int playMode)
     emit playModeChanged(playMode);
 }
 
+int WallpaperConfig::currentPlayIndex() const
+{
+    return _currentPlayIndex;
+}
+
+void WallpaperConfig::setCurrentPlayIndex(int currentPlayIndex)
+{
+    _currentPlayIndex = currentPlayIndex;
+    emit currentPlayIndexChanged(currentPlayIndex);
+}
+
+qint64 WallpaperConfig::currentPlayPosition() const
+{
+    return _currentPlayPosition;
+}
+
+void WallpaperConfig::setCurrentPlayPosition(const qint64 &currentPlayPosition)
+{
+    _currentPlayPosition = currentPlayPosition;
+    emit currentPlayPositionChanged(currentPlayPosition);
+}
+
 void WallpaperConfig::loadSettings(class QSettings *settings)
 {
     //加载播放列表
@@ -79,32 +98,10 @@ void WallpaperConfig::loadSettings(class QSettings *settings)
     }
 
     //加载配置
-    QVariant retData;
+    LOAD_PROPERTYS(settings);
 
-    retData = settings->value(CONFIG_KEY("isEnabled"),true);
-    if(retData.canConvert<bool>())
-    {
-        setIsEnabled(retData.toBool());
-    }
-
-    retData = settings->value(CONFIG_KEY("volume"),50);
-    if(retData.canConvert<int>())
-    {
-        setVolume(retData.toInt());
-    }
-
-    retData = settings->value(CONFIG_KEY("isMute"),false);
-    if(retData.canConvert<bool>())
-    {
-        setIsMute(retData.toBool());
-    }
-
-    retData = settings->value(CONFIG_KEY("playMode"),static_cast<int>(QMediaPlaylist::PlaybackMode::Loop));
-    if(retData.canConvert<int>())
-    {
-        _mediaPlayList->setPlaybackMode(static_cast<QMediaPlaylist::PlaybackMode>(retData.toInt()));
-    }
-
+    _mediaPlayList->setCurrentIndex(_currentPlayIndex);
+    connect(_mediaPlayList,&QMediaPlaylist::currentIndexChanged,this,&WallpaperConfig::setCurrentPlayIndex);
 }
 
 void WallpaperConfig::saveSettings(class QSettings *settings)
@@ -117,15 +114,5 @@ void WallpaperConfig::saveSettings(class QSettings *settings)
     }
 
     //保存配置
-    /*
-    settings->setValue(CONFIG_KEY("isEnabled"),isEnabled());
-    settings->setValue(CONFIG_KEY("volume"),volume());
-    settings->setValue(CONFIG_KEY("isMute"),isMute());
-    settings->setValue(CONFIG_KEY("playMode"),static_cast<int>(_mediaPlayList->playbackMode()));
-    */
-
-    SAVE_CONFIG(settings,isEnabled);
-    SAVE_CONFIG(settings,volume);
-    SAVE_CONFIG(settings,isMute);
-    SAVE_CONFIG(settings,playMode);
+    SAVE_PROPERTYS(settings);
 }

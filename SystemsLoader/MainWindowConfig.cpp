@@ -2,9 +2,6 @@
 
 #include <QSettings>
 
-
-const QString MainWindowConfig::_configScope("MainWindowConfig/");
-
 MainWindowConfig::MainWindowConfig(QObject *parent) : QObject(parent)
   , IConfig()
   , _autoStart(true)
@@ -25,17 +22,10 @@ void MainWindowConfig::setAutoStart(bool autoStart)
 
 void MainWindowConfig::loadSettings(QSettings *settings)
 {
-    QVariant retData;
-
-    retData = settings->value(CONFIG_KEY("autoStart"),true);
-    if(retData.canConvert<bool>())
-    {
-        setAutoStart(retData.toBool());
-    }
+    LOAD_PROPERTYS(settings);
 }
 
 void MainWindowConfig::saveSettings(QSettings *settings)
 {
-    //保存配置
-    settings->setValue(CONFIG_KEY("autoStart"),autoStart());
+    SAVE_PROPERTYS(settings);
 }

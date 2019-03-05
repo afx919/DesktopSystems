@@ -8,7 +8,6 @@
 #include <QTextStream>
 #include <QDir>
 #include <QCoreApplication>
-#include <QMessageBox>
 
 
 QDebugMessageToFile::QDebugMessageToFile()

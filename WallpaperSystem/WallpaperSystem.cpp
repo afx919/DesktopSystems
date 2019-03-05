@@ -36,6 +36,18 @@ WallpaperSystem::WallpaperSystem(QObject *parent) : QObject(parent)
     //绑定mute
     connect(_wallpaperConfig,&WallpaperConfig::isMuteChanged,_mediaPlayer,&QMediaPlayer::setMuted);
 
+    //绑定position
+    connect(_mediaPlayer,&QMediaPlayer::positionChanged,[&](auto position)
+    {
+        if(!position && !_mediaPlayer->duration())
+            return;//第一次调用到该信号的时候position和duration都为0会导致bug闪退
+        _wallpaperConfig->setCurrentPlayPosition(position);
+        if(position >= _mediaPlayer->duration())
+        {
+            _wallpaperConfig->mediaPlayList()->next();
+        }
+    });
+
     qDebug()<<"WallpaperSystem:创建播放窗口完成";
 }
 
@@ -92,6 +104,23 @@ void WallpaperSystem::playFastBackward()
     _mediaPlayer->setPosition(newPos < 0 ? 0 : newPos);
 }
 
+void WallpaperSystem::playMedia(const QString &filePath)
+{
+    Q_ASSERT(_mediaPlayer);
+    Q_ASSERT(_wallpaperConfig);
+
+    for(int i = 0; i < _wallpaperConfig->mediaPlayList()->mediaCount(); i++)
+    {
+        auto media = _wallpaperConfig->mediaPlayList()->media(i);
+        if(media.canonicalUrl().toString(QUrl::PreferLocalFile) == filePath)
+        {
+            _wallpaperConfig->mediaPlayList()->setCurrentIndex(i);
+            qDebug()<<"WallpaperSystem"<<"直接播放" <<filePath;
+            break;
+        }
+    }
+}
+
 void WallpaperSystem::initSystem()
 {
     //初始化桌面窗口
@@ -116,8 +145,12 @@ void WallpaperSystem::initSettingWidget(QTabWidget *parent)
     connect(_wallpaperWidget,&WallpaperWidget::playPrev,this,&WallpaperSystem::playPrevWallpaper);
     connect(_wallpaperWidget,&WallpaperWidget::playFastForward,this,&WallpaperSystem::playFastForward);
     connect(_wallpaperWidget,&WallpaperWidget::playFastBackward,this,&WallpaperSystem::playFastBackward);
+    connect(_wallpaperWidget,&WallpaperWidget::playMedia,this,&WallpaperSystem::playMedia);
 
+    //自动播放
     playPausewallpaper();
+    //设置为上次的播放位置
+    _mediaPlayer->setPosition(_wallpaperConfig->currentPlayPosition());
 }
 
 void WallpaperSystem::exitSystem()

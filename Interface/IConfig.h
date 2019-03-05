@@ -1,9 +1,31 @@
 #ifndef ICONFIG_H
 #define ICONFIG_H
 
-//使用宏需要定义 QString _configScope 否则会找不到_configScope
-#define CONFIG_KEY(NAME) _configScope + NAME
-#define SAVE_CONFIG(P_SETTINGS,NAME)  P_SETTINGS->setValue(CONFIG_KEY(#NAME),NAME());
+//从配置文件加载属性
+#define SAVE_PROPERTYS(P_SETTINGS) \
+    QString className = metaObject()->className(); \
+    className += "/"; \
+    for(int i = 0; i < metaObject()->propertyCount(); i++) \
+    { \
+        P_SETTINGS->setValue(className + (metaObject()->property(i).name()),this->property(metaObject()->property(i).name())); \
+    }
+
+//从配置文件写入属性
+#define LOAD_PROPERTYS(P_SETTINGS) \
+    QString className = metaObject()->className(); \
+    className += "/"; \
+    for(int i = 0; i < metaObject()->propertyCount(); i++) \
+    { \
+        QString key = className + (metaObject()->property(i).name()); \
+        if(settings->contains(key)) \
+        { \
+            setProperty(metaObject()->property(i).name(),settings->value(key)); \
+        } \
+    }
+
+
+#include <QMetaObject>
+#include <QMetaProperty>
 
 class IConfig
 {

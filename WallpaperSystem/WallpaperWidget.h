@@ -29,6 +29,7 @@ signals:
     void playNext();
     void playFastForward();
     void playFastBackward();
+    void playMedia(const QString& mediaPath);
     
 private slots:
     void cleanFileDirectorys();

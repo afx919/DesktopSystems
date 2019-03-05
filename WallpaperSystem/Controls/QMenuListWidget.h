@@ -14,11 +14,14 @@ protected:
     
 signals:
     void selectDeleteItem();
+    void playItem(const QString& itemText);
+    void addMediaFile();
     
 public slots:
     void deleteItem(bool checked = false);
 private:
-    class QMenu* rightClickMenu;
+    class QMenu* _rightClickHasItemMenu;
+    class QMenu* _rightClickNoItemMenu;
 };
 
 #endif // QMENULISTWIDGET_H
