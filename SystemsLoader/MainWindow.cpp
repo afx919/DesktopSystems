@@ -83,6 +83,7 @@ void MainWindow::initTrayIcon()
 
     _systemTrayIcon->setContextMenu(trayMenu);
 
+    //TODO 此处为什么双击不能显示？也没有打印
     /*
     connect(_systemTrayIcon,&QSystemTrayIcon::activated,[&](auto reason)
     {
@@ -121,13 +122,14 @@ void MainWindow::initMenuBar()
         this->setAutoStart(isAutoStart);
     });
 
+    connect(ui->menu_file_quite_action,&QAction::triggered,[&]()
+    {
+        _isRealClose = true;
+        this->close();
+    });
+
     //初始化UI状态
     _mainWindowConfig->setAutoStart(_mainWindowConfig->autoStart());
-    /*
-    if(_mainWindowConfig->autoStart())
-    {
-        ui->menu_setting_auto_start_action->setIcon(QIcon(":/yes.png"));
-    }*/
 }
 
 void MainWindow::setAutoStart(bool isAutoStart)

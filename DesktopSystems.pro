@@ -18,7 +18,7 @@ TEMPLATE = app
 RC_ICONS = icon.ico
 
 # 版本号
-VERSION = 1.0.0
+VERSION = 1.0.1
 
 # 语言
 # 0x0004 表示 简体中文

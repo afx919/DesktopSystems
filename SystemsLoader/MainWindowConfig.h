@@ -23,6 +23,9 @@ signals:
 public slots:
 
 private:
+    /**
+     * @brief _autoStart 开机自启
+     */
     bool _autoStart;
 
     // IConfig interface
