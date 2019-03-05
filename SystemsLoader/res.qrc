@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>SystemTrayIcon.png</file>
+        <file>yes.png</file>
+    </qresource>
+</RCC>
