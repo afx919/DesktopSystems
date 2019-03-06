@@ -62,8 +62,22 @@ void WallpaperSystem::playPausewallpaper()
     }
     else
     {
-        _mediaPlayer->play();
+        playWallpaper();
     }
+}
+
+void WallpaperSystem::playWallpaper()
+{
+    if(!isEnabled)
+        return ;
+    _mediaPlayer->play();
+}
+
+void WallpaperSystem::pauseWallpaper()
+{
+    if(!isEnabled)
+        return ;
+    _mediaPlayer->pause();
 }
 
 void WallpaperSystem::playNextWallpaper()
@@ -114,7 +128,12 @@ void WallpaperSystem::playMedia(const QString &filePath)
         auto media = _wallpaperConfig->mediaPlayList()->media(i);
         if(media.canonicalUrl().toString(QUrl::PreferLocalFile) == filePath)
         {
+            //如果当前播放的是目标壁纸，这不重新播放
+            if(_wallpaperConfig->mediaPlayList()->media(_wallpaperConfig->currentPlayIndex()).canonicalUrl().toString(QUrl::PreferLocalFile) == filePath)
+                return ;
+
             _wallpaperConfig->mediaPlayList()->setCurrentIndex(i);
+            playWallpaper();
             qDebug()<<"WallpaperSystem"<<"直接播放" <<filePath;
             break;
         }

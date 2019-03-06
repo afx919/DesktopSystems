@@ -20,6 +20,16 @@ public slots:
     void playPausewallpaper();
 
     /**
+     * @brief playWallpaper 播放
+     */
+    void playWallpaper();
+
+    /**
+     * @brief pauseWallpaper 暂停
+     */
+    void pauseWallpaper();
+
+    /**
      * @brief playNextWallpaper 下一曲
      */
     void playNextWallpaper();

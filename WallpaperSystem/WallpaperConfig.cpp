@@ -13,6 +13,7 @@ WallpaperConfig::WallpaperConfig(QObject *parent) : QObject(parent)
   , _volume(50)
   , _isMute(false)
   , _currentPlayIndex(0)
+  , _settings(nullptr)
 {
 
 }
@@ -25,6 +26,7 @@ bool WallpaperConfig::isEnabled() const
 void WallpaperConfig::setIsEnabled(const bool &isEnabled)
 {
     _isEnabled = isEnabled;
+    SAVE_CONFIG(_settings,isEnabled);
     emit isEnabledChanged(isEnabled);
 }
 
@@ -52,6 +54,7 @@ bool WallpaperConfig::isMute() const
 void WallpaperConfig::setIsMute(bool isMute)
 {
     _isMute = isMute;
+    SAVE_CONFIG(_settings,isMute);
     emit isMuteChanged(isMute);
 }
 
@@ -63,6 +66,7 @@ int WallpaperConfig::playMode() const
 void WallpaperConfig::setPlayMode(int playMode)
 {
     _mediaPlayList->setPlaybackMode(static_cast<QMediaPlaylist::PlaybackMode>(playMode));
+    SAVE_CONFIG(_settings,playMode);
     emit playModeChanged(playMode);
 }
 
@@ -74,6 +78,7 @@ int WallpaperConfig::currentPlayIndex() const
 void WallpaperConfig::setCurrentPlayIndex(int currentPlayIndex)
 {
     _currentPlayIndex = currentPlayIndex;
+    SAVE_CONFIG(_settings,currentPlayIndex);
     emit currentPlayIndexChanged(currentPlayIndex);
 }
 
@@ -90,6 +95,8 @@ void WallpaperConfig::setCurrentPlayPosition(const qint64 &currentPlayPosition)
 
 void WallpaperConfig::loadSettings(class QSettings *settings)
 {
+    _settings = settings;
+
     //加载播放列表
     QFile file(_mediaPlayListPath);
     if(file.open(QIODevice::ReadOnly))

@@ -91,6 +91,8 @@ private:
      */
     static const char* _mediaPlayListPath;
 
+    class QSettings* _settings;
+
 public slots:
 
     // IConfig interface

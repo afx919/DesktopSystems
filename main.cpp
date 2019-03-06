@@ -1,6 +1,4 @@
 #include <QApplication>
-#include <QFont>
-#include <QDebug>
 
 #include "SingleApplication.h"
 #include "SystemsLoader/MainWindow.h"

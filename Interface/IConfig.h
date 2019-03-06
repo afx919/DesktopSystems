@@ -1,7 +1,7 @@
 #ifndef ICONFIG_H
 #define ICONFIG_H
 
-//从配置文件加载属性
+//通过反射从配置文件加载属性,所以必须为Q_PROPERTY
 #define SAVE_PROPERTYS(P_SETTINGS) \
     QString className = metaObject()->className(); \
     className += "/"; \
@@ -10,7 +10,7 @@
         P_SETTINGS->setValue(className + (metaObject()->property(i).name()),this->property(metaObject()->property(i).name())); \
     }
 
-//从配置文件写入属性
+//通过反射从配置文件写入属性,所以必须为Q_PROPERTY
 #define LOAD_PROPERTYS(P_SETTINGS) \
     QString className = metaObject()->className(); \
     className += "/"; \
@@ -22,6 +22,9 @@
             setProperty(metaObject()->property(i).name(),settings->value(key)); \
         } \
     }
+
+//写配置 不需要Q_PROPERTY,但是需要有get方法
+#define SAVE_CONFIG(P_SETTINGS,NAME)  P_SETTINGS->setValue(QString(metaObject()->className()) + "/" + #NAME,this->NAME());
 
 
 #include <QMetaObject>
