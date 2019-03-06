@@ -16,7 +16,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void initTrayIcon();
+    void initTrayIconSettingMenu();
+    void initTrayIconExitMenu();
     void initMenuBar();
 
 protected:

@@ -11,6 +11,7 @@
 #include "WallpaperConfig.h"
 #include "WallpaperWidget.h"
 
+
 WallpaperSystem::WallpaperSystem(QObject *parent) : QObject(parent)
   , _mediaPlayer(new QMediaPlayer(this))
   , _videoWidget(new QVideoWidget())
@@ -170,6 +171,11 @@ void WallpaperSystem::initSettingWidget(QTabWidget *parent)
     playPausewallpaper();
     //设置为上次的播放位置
     _mediaPlayer->setPosition(_wallpaperConfig->currentPlayPosition());
+}
+
+void WallpaperSystem::initTrayMenu(QMenu *trayMenu)
+{
+
 }
 
 void WallpaperSystem::exitSystem()

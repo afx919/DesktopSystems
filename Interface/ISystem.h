@@ -49,6 +49,12 @@ public:
     virtual void initSettingWidget(class QTabWidget* parent) = 0;
 
     /**
+     * @brief initTrayMenu 初始化托盘菜单
+     * @param trayMenu
+     */
+    virtual void initTrayMenu(class QMenu* trayMenu) = 0;
+
+    /**
      * @brief saveConfig 保存
      * @param settings
      */

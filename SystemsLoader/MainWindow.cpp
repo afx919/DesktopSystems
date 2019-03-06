@@ -11,12 +11,14 @@
 #include "MainWindowConfig.h"
 #include "../DataSheet.h"
 #include "../Interface/ISystem.h"
-#include "WallpaperSystem/WallpaperWidget.h"
+
 #include "../WallpaperSystem/WallpaperSystem.h"
+#include "../SearchSystem/SearchSystem.h"
 
 static QList<QMetaObject> _SystemTypes =
 {
     {WallpaperSystem::staticMetaObject},
+    {SearchSystem::staticMetaObject},
 };
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -32,14 +34,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _mainWindowConfig->loadSettings(_settings);
 
+    //初始化托盘
+    initTrayIconSettingMenu();
+
+    //初始化菜单栏
+    initMenuBar();
+
+
+    //初始化Systems
     _systems.clear();
     
     //初始化tabWidget
     ui->tab_settings->clear();
 
-    for(auto systemMetaObjects : _SystemTypes)
+    for(auto systemMetaObject : _SystemTypes)
     {
-        auto systemObject = systemMetaObjects.newInstance(Q_ARG(QObject*,this));
+        auto systemObject = systemMetaObject.newInstance(Q_ARG(QObject*,this));
         if(systemObject)
         {
             auto system = dynamic_cast<ISystem*>(systemObject);
@@ -48,40 +58,30 @@ MainWindow::MainWindow(QWidget *parent) :
                 system->loadConfig(_settings);
                 system->initSystem();
                 system->initSettingWidget(ui->tab_settings);
+                system->initTrayMenu(_systemTrayIcon->contextMenu());
                 _systems.push_back(system);
             }
         }
     }
 
-    //初始化托盘
-    initTrayIcon();
-
-    //初始化菜单栏
-    initMenuBar();
+    initTrayIconExitMenu();
 }
 
-void MainWindow::initTrayIcon()
+void MainWindow::initTrayIconSettingMenu()
 {
     _systemTrayIcon->setIcon(QIcon(":/SystemTrayIcon.png"));
     _systemTrayIcon->setToolTip(tr("桌面插件"));
 
     //初始化托盘右键菜单
-    auto trayMenu = new QMenu(this);
-    QAction* action = nullptr;
-
-    action = new QAction(tr("主页面"),trayMenu);
+    QMenu* trayMenu = new QMenu(this);
+    QAction* action = new QAction(tr("主页面"),trayMenu);
     connect(action,&QAction::triggered,this,&MainWindow::show);
     trayMenu->addAction(action);
 
-    action = new QAction(tr("退出"),trayMenu);
-    connect(action,&QAction::triggered,[&]()
-    {
-        _isRealClose = true;
-        this->close();
-    });
+    action = new QAction(trayMenu);
+    action->setSeparator(true);
     trayMenu->addAction(action);
 
-    _systemTrayIcon->setContextMenu(trayMenu);
 
     //TODO 此处为什么双击不能显示？也没有打印
     /*
@@ -94,8 +94,25 @@ void MainWindow::initTrayIcon()
         }
     });
     */
-
+    _systemTrayIcon->setContextMenu(trayMenu);
     _systemTrayIcon->hide();
+}
+
+void MainWindow::initTrayIconExitMenu()
+{
+    QMenu* trayMenu = _systemTrayIcon->contextMenu();
+
+    QAction* action = new QAction(trayMenu);
+    action->setSeparator(true);
+    trayMenu->addAction(action);
+
+    action = new QAction(tr("退出"),trayMenu);
+    connect(action,&QAction::triggered,[&]()
+    {
+        _isRealClose = true;
+        this->close();
+    });
+    trayMenu->addAction(action);
 }
 
 void MainWindow::initMenuBar()

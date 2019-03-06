@@ -71,11 +71,12 @@ private:
 
     // ISystem interface
 public:
-    void initSystem() override;
-    void initSettingWidget(QTabWidget *parent) override;
-    void exitSystem() override;
-    void loadConfig(class QSettings *settings) override;
-    void saveConfig(class QSettings *settings) override;
+    virtual void initSystem() override;
+    virtual void initSettingWidget(QTabWidget *parent) override;
+    virtual void initTrayMenu(class QMenu* trayMenu) override;
+    virtual void exitSystem() override;
+    virtual void loadConfig(class QSettings *settings) override;
+    virtual void saveConfig(class QSettings *settings) override;
 
     virtual void setIsEnabled(const bool &value) override;
 };

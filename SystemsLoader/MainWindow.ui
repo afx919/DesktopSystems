@@ -46,6 +46,12 @@
       </property>
       <item>
        <widget class="QTabWidget" name="tab_settings">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -64,8 +70,14 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>24</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>微软雅黑</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">

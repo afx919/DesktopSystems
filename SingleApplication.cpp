@@ -15,14 +15,7 @@ SingleApplication::SingleApplication(int &argc, char **argv)
     , _isRunning(false)
     , localServer(nullptr)
 {
-    if(initLocalConnection())
-    {
-        //初始化字体
-        QFont font;
-        font.setPixelSize(12);
-        font.setFamily("msyh");
-        setFont(font);
-    }
+    initLocalConnection();
 }
 
 bool SingleApplication::isRunning()

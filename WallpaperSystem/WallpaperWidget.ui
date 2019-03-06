@@ -19,12 +19,24 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="switch_groupbox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>功能开关</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QRadioButton" name="on_radio">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="toolTip">
          <string>启用壁纸插件</string>
         </property>
@@ -35,6 +47,12 @@
       </item>
       <item>
        <widget class="QRadioButton" name="off_radio">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="toolTip">
          <string>关闭壁纸插件</string>
         </property>
@@ -51,12 +69,24 @@
    </item>
    <item>
     <widget class="QGroupBox" name="function_groupbox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>功能设置</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QRadioButton" name="once_radio">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>仅播放当前壁纸</string>
         </property>
@@ -64,6 +94,12 @@
       </item>
       <item>
        <widget class="QRadioButton" name="loop_radio">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>列表循环播放</string>
         </property>
@@ -71,6 +107,12 @@
       </item>
       <item>
        <widget class="QRadioButton" name="random_radio">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>随机播放</string>
         </property>
@@ -81,6 +123,12 @@
    </item>
    <item>
     <widget class="QGroupBox" name="play_groupbox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>播放设置</string>
      </property>
@@ -89,6 +137,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>音量(仅视频可用)</string>
           </property>
@@ -96,6 +150,12 @@
         </item>
         <item>
          <widget class="QSlider" name="volume_slider">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="maximum">
            <number>100</number>
           </property>
@@ -106,6 +166,12 @@
         </item>
         <item>
          <widget class="QCheckBox" name="mute_checkbox">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>静音</string>
           </property>
@@ -117,6 +183,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QPushButton" name="prev_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>上一张壁纸</string>
           </property>
@@ -124,6 +196,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="fast_backward_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>快退</string>
           </property>
@@ -131,6 +209,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="play_pause_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>播放</string>
           </property>
@@ -138,6 +222,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="fast_forward_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>快进</string>
           </property>
@@ -145,6 +235,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="next_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>下一张壁纸</string>
           </property>
@@ -157,12 +253,24 @@
    </item>
    <item>
     <widget class="QGroupBox" name="directory_groupbox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>目录设置</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QMenuListWidget" name="listWidget">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -210,6 +318,12 @@
         </property>
         <item>
          <widget class="QPushButton" name="clean_file_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>清空文件</string>
           </property>
@@ -217,6 +331,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="remove_file_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>移除文件</string>
           </property>
@@ -224,6 +344,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="add_file_button">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>添加文件</string>
           </property>
